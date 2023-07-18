@@ -1,0 +1,20 @@
+version: "3"
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=didingraphql
+    ports:
+      - "5433:5432"
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+    ports:
+      - "3000:3000"
